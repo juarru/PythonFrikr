@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for frikrpython project.
 
@@ -37,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'frikrpython',
     'photos',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +141,14 @@ STATIC_URL = '/static/'
 #         },
 #     }
 # }
+
+# Generamos un setting para redireccionar en caso de obligatoriedad de autenticacion
+LOGIN_URL = '/login' #cuando un usuario no esta autenticado le redirige a /login
+
+LICENSES = {
+    ('QUE', 'Quentin Tarantino'),
+    ('DSH', 'Doctor Schultz')
+}
+
+# BADWORDS
+PROJECT_BADWORDS = [u'Abollao', u'Abrazafarolas', u'Afilasables',u'Analfabestia',u'Apollardao',u'Arrastramantas',u'Caracartón']
