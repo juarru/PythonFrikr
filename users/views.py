@@ -6,12 +6,26 @@ from django.contrib.auth import logout as django_logout, authenticate, login as 
 # Create your views here.
 from users.forms import LoginForm
 
+from django.views.generic import View
 
-def login(request):
+class LoginView(View):
 
-    error_messages = []
+    def get(self, request):
 
-    if request.method == 'POST':
+        error_messages = []
+
+        form = LoginForm()
+
+        context = {
+            'errors': error_messages,
+            'login_form': form
+        }
+        return render(request, 'users/login.html', context)
+
+    def post(self, request):
+
+        error_messages = []
+
         form = LoginForm(request.POST)
         if form.is_valid():
 
@@ -30,18 +44,17 @@ def login(request):
                 else:
                     error_messages.append('El usuario no está activo')
 
-    else:
-        form = LoginForm()
+        context = {
+            'errors': error_messages,
+            'login_form': form
+        }
+        return render(request, 'users/login.html', context)
 
-    context = {
-        'errors': error_messages,
-        'login_form': form
-    }
-    return render(request, 'users/login.html', context)
+class LogoutView(View):
 
-def logout(request):
+    def get(self, request):
 
-    if request.user.is_authenticated():
-        django_logout(request)
-    return redirect('photos_home')
+        if request.user.is_authenticated():
+            django_logout(request)
+        return redirect('photos_home')
 
