@@ -8,7 +8,7 @@ from photos.settings import LICENSES
 # Create your models here.
 
 # Setting constants
-
+from photos.validators import badwords_detector
 
 PUBLIC = 'PUB'
 PRIVATE = 'PRI'
@@ -23,7 +23,7 @@ class Photo(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=150)
     url = models.URLField()
-    description = models.TextField(blank=True, null=True, default="")
+    description = models.TextField(blank=True, null=True, default="", validators=[badwords_detector])
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     license = models.CharField(max_length=3, choices=LICENSES)
